@@ -38,8 +38,8 @@ services:
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
 
-  postgres:
-    container_name: d-banco-db-conta1
+  db-conta:
+    container_name: d-banco-db-conta
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -51,6 +51,23 @@ services:
       - ./.Docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/init-user-db.sh
     ports:
       - "5432:5432"
+    networks:
+      - d-banco-backend
+    restart: always
+
+  db-transacao:
+    container_name: d-banco-db-transacao
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - ./.Docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/init-user-db.sh
+    ports:
+      - "5433:5432"
     networks:
       - d-banco-backend
     restart: always

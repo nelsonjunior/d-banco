@@ -2,6 +2,8 @@ package br.com.nrsjnet.dbanco.conta.service;
 
 import br.com.nrsjnet.dbanco.conta.dominio.dto.CadastrarContaDTO;
 import br.com.nrsjnet.dbanco.conta.dominio.dto.ContaDTO;
+import br.com.nrsjnet.dbanco.conta.dominio.entidade.Conta;
+import br.com.nrsjnet.dbanco.conta.producer.ContaProducer;
 import br.com.nrsjnet.dbanco.conta.repository.ContaRepository;
 import br.com.nrsjnet.dbanco.conta.service.exceptions.ContaJaCadastradaException;
 import br.com.nrsjnet.dbanco.conta.service.exceptions.ContaNaoEncontradaException;
@@ -9,9 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -19,14 +24,21 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Sql("/cadastarConta.sql")
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
 public class ContaServiceTest {
 
     @Autowired
     private ContaRepository contaRepository;
+
+    @Mock
+    private ContaProducer contaProducer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -35,19 +47,23 @@ public class ContaServiceTest {
 
     @BeforeEach
     public void setup() {
-        service = new ContaService(contaRepository, modelMapper);
+        service = new ContaService(contaProducer, contaRepository, modelMapper);
     }
 
     @Test
     @DisplayName("Validar objetos contexto")
     public void contextLoads() throws Exception {
         assertThat(contaRepository).isNotNull();
+        assertThat(contaProducer).isNotNull();
         assertThat(modelMapper).isNotNull();
     }
 
     @Test
     @DisplayName("Deve salvar e retornar uma conta")
     void deveSalvarEhRetornarUmaConta() {
+
+        doNothing().when(contaProducer).enviar(any(Conta.class));
+
         var cadatratContaDTO = new CadastrarContaDTO("Pessoa 01", "1234567890");
         ContaDTO contaSalva = this.service.salvar(cadatratContaDTO);
         assertThat(contaSalva).isNotNull();

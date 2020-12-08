@@ -3,6 +3,7 @@ package br.com.nrsjnet.dbanco.conta.service;
 import br.com.nrsjnet.dbanco.conta.dominio.dto.CadastrarContaDTO;
 import br.com.nrsjnet.dbanco.conta.dominio.dto.ContaDTO;
 import br.com.nrsjnet.dbanco.conta.dominio.entidade.Conta;
+import br.com.nrsjnet.dbanco.conta.producer.ContaProducer;
 import br.com.nrsjnet.dbanco.conta.repository.ContaRepository;
 import br.com.nrsjnet.dbanco.conta.service.exceptions.ContaJaCadastradaException;
 import br.com.nrsjnet.dbanco.conta.service.exceptions.ContaNaoEncontradaException;
@@ -18,17 +19,20 @@ public class ContaService {
 
     private final ContaRepository contaRepository;
 
+    private final ContaProducer contaProducer;
+
     private final ModelMapper modelMapper;
 
-    public ContaService(ContaRepository contaRepository, ModelMapper modelMapper) {
+    public ContaService(ContaProducer contaProducer, ContaRepository contaRepository, ModelMapper modelMapper) {
+        this.contaProducer = contaProducer;
         this.contaRepository = contaRepository;
         this.modelMapper = modelMapper;
     }
 
     public ContaDTO salvar(CadastrarContaDTO dto) {
         validarCadastro(dto);
-
         Conta conta = contaRepository.save(modelMapper.map(dto, Conta.class));
+        contaProducer.enviar(conta);
         return modelMapper.map(conta, ContaDTO.class);
     }
 
