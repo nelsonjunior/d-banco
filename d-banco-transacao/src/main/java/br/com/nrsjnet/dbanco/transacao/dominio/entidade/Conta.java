@@ -2,11 +2,9 @@ package br.com.nrsjnet.dbanco.transacao.dominio.entidade;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +24,6 @@ public class Conta {
     private String cpf;
 
     @Getter @Setter
-    private BigDecimal saldo;
+    private BigDecimal saldo = BigDecimal.ZERO;
 
 }
