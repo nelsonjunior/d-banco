@@ -1,7 +1,5 @@
 package br.com.nrsjnet.dbanco.transacao;
 
-import br.com.nrsjnet.dbanco.transacao.dominio.dto.TransacaoDTO;
-import br.com.nrsjnet.dbanco.transacao.dominio.entidade.Transacao;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +15,6 @@ public class DBancoTransacaoApplication {
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
-		modelMapper.typeMap(Transacao.class, TransacaoDTO.class).addMappings(mapper -> {
-			mapper.map(src -> src.getContaDestino().getSaldo(),
-					TransacaoDTO::setValorSaldo);
-		});
 		return modelMapper;
 	}
 }

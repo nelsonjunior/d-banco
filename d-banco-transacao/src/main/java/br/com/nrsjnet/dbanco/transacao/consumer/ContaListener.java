@@ -22,7 +22,9 @@ public class ContaListener {
         this.modelMapper = modelMapper;
     }
 
-    @KafkaListener(topics = "${topic.conta.consumer}", groupId = "group_id")
+    @KafkaListener(topics = "${topic.cadastro.conta.consumer}"
+            , groupId = "${topic.group-id}"
+            , containerFactory = "contaKafkaListenerContainerFactory")
     public void consume(ConsumerRecord<String, ContaDTO> payload){
 
         log.info("Receber informação cadastro contata" + payload);

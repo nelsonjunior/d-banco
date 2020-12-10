@@ -78,8 +78,6 @@ services:
     ports:
       - "27017:27017"
     environment:
-#      MONGO_INITDB_ROOT_USERNAME: balanco
-#      MONGO_INITDB_ROOT_PASSWORD: balanco
       MONGO_INITDB_DATABASE: balanco
     networks:
       - d-banco-backend

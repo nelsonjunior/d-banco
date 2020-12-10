@@ -2,7 +2,6 @@ package br.com.nrsjnet.dbanco.transacao.repository;
 
 
 import br.com.nrsjnet.dbanco.transacao.dominio.entidade.Lancamento;
-import br.com.nrsjnet.dbanco.transacao.dominio.entidade.Transacao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -21,11 +21,12 @@ public class LancamentoListener {
         this.modelMapper = modelMapper;
     }
 
-    @KafkaListener(topics = "${topic.lancamento.consumer}", groupId = "group_id"
-        , properties = "spring.kafka.consumer.properties.spring.json.value.default.type=br.com.nrsjnet.dbanco.balanco.dominio.entidade.Lancamento\n")
+    @KafkaListener(topics = "${topic.lancamento.conta.consumer}"
+            , groupId = "${topic.group-id}"
+            , containerFactory = "lancamentoKafkaListenerContainerFactory")
     public void consume(ConsumerRecord<String, Lancamento> payload) {
 
-        log.info("Receber informação cadastro contata" + payload);
+        log.info("Receber informação lancamentos" + payload);
 
         Lancamento lancamento = modelMapper.map(payload.value(), Lancamento.class);
 

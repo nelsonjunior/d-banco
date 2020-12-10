@@ -1,5 +1,6 @@
 package br.com.nrsjnet.dbanco.balanco.consumer;
 
+import br.com.nrsjnet.dbanco.balanco.dominio.dto.ContaDTO;
 import br.com.nrsjnet.dbanco.balanco.dominio.entidade.Conta;
 import br.com.nrsjnet.dbanco.balanco.repository.ContaRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +22,13 @@ public class ContaListener {
         this.modelMapper = modelMapper;
     }
 
-    @KafkaListener(topics = "${topic.conta.consumer}", groupId = "group_id")
-    public void consume(ConsumerRecord<String, Conta> payload){
+    @KafkaListener(
+            topics = "${topic.atualizacao.conta.consumer}"
+            , groupId = "${topic.group-id}"
+            , containerFactory = "contaKafkaListenerContainerFactory")
+    public void consume(ConsumerRecord<String, ContaDTO> payload){
 
-        log.info("Receber informação cadastro contata" + payload);
+        log.info("Receber informação cadastro e atualizacao conta" + payload);
 
         Conta conta = modelMapper.map(payload.value(), Conta.class);
 

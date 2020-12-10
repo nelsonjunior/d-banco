@@ -62,9 +62,9 @@ public class LancamentoTransferencia extends AbstractLancamento<DadosLancamentoT
 
     @Override
     protected List<Lancamento> obterLancamentos() {
-        lancamentoDebito = prepararLancamento(TipoLancamentoEnum.DEBITO_TRANSFERENCIA, contaDestino);
+        lancamentoDebito = prepararLancamento(TipoLancamentoEnum.DEBITO_TRANSFERENCIA, contaOrigem);
         lancamentoDebito.setDescricao(TipoLancamentoEnum.DEBITO_TRANSFERENCIA.obterMensagem(dados.getValor(), contaDestino.getNomeCompleto()));
-        lancamentoCredito = prepararLancamento(TipoLancamentoEnum.CREDITO_TRANSFERENCIA, contaOrigem);
+        lancamentoCredito = prepararLancamento(TipoLancamentoEnum.CREDITO_TRANSFERENCIA, contaDestino);
         lancamentoCredito.setDescricao(TipoLancamentoEnum.CREDITO_TRANSFERENCIA.obterMensagem(dados.getValor(), contaOrigem.getNomeCompleto()));
         return List.of(lancamentoDebito, lancamentoCredito);
     }
