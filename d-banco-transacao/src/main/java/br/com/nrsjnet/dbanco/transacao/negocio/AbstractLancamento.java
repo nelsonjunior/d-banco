@@ -30,10 +30,7 @@ public abstract class AbstractLancamento<T extends DadosLancamentoDTO> {
 
         validar();
 
-        var retorno = new RetornoLancamentoDTO();
-        retorno.setLancamentosRealizados(obterLancamentos());
-        retorno.setContasParaAtualizar(contasParaAtualizar());
-        return retorno;
+        return new RetornoLancamentoDTO(obterLancamentos(), contasParaAtualizar());
     }
 
     private void validarBase() throws ValidacaoNegocioException{

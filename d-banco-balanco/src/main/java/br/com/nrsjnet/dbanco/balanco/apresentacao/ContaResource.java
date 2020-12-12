@@ -31,28 +31,16 @@ public class ContaResource {
         this.contaService = contaService;
     }
 
-    @ApiOperation( value = "Obter informacoes da conta corrente")
+    @ApiOperation( value = "Obter informacoes do saldo da conta corrente")
     @ApiResponses( value = {
-            @ApiResponse(code = 200, message = "Retorna a conta salva"),
+            @ApiResponse(code = 200, message = "Retorna do saldo da conta corrente"),
             @ApiResponse(code = 400, message = "Requisição Inválida"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção inesperada")
     })
-    @GetMapping("{cpf}")
+    @GetMapping("{cpf}/saldo")
     @ResponseStatus(HttpStatus.OK)
-    public RetornoContaDTO obter(@PathVariable("cpf") String cpf){
+    public RetornoContaDTO obterSaldo(@PathVariable("cpf") String cpf){
         return this.contaService.obter(cpf);
-    }
-
-    @ApiOperation( value = "Listar contas correntes")
-    @ApiResponses( value = {
-            @ApiResponse(code = 200, message = "Retorna lista de contas salvas"),
-            @ApiResponse(code = 400, message = "Requisição Inválida"),
-            @ApiResponse(code = 500, message = "Foi gerada uma exceção inesperada")
-    })
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<RetornoContaDTO> listar(){
-        return this.contaService.listar();
     }
 
     @ApiOperation( value = "Retorna lançamentos da conta corrente informada")
@@ -63,7 +51,7 @@ public class ContaResource {
     })
     @GetMapping("{cpf}/extrato")
     @ResponseStatus(HttpStatus.OK)
-    public List<RetornoLancamentoDTO> extrato(@PathVariable("cpf") String cpf){
+    public List<RetornoLancamentoDTO> obterExtrato(@PathVariable("cpf") String cpf){
         return this.contaService.obterExtrato(cpf);
     }
 

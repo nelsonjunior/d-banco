@@ -3,7 +3,7 @@ package br.com.nrsjnet.dbanco.transacao.service;
 import br.com.nrsjnet.dbanco.transacao.dominio.command.DepositarCommand;
 import br.com.nrsjnet.dbanco.transacao.dominio.command.SaqueCommand;
 import br.com.nrsjnet.dbanco.transacao.dominio.command.TransferenciaCommand;
-import br.com.nrsjnet.dbanco.transacao.dominio.dto.NovaTransferenciaDTO;
+import br.com.nrsjnet.dbanco.transacao.dominio.dto.TransferenciaDTO;
 import br.com.nrsjnet.dbanco.transacao.dominio.dto.TransacaoDTO;
 import br.com.nrsjnet.dbanco.transacao.dominio.enums.TipoTransacaoEnum;
 import br.com.nrsjnet.dbanco.transacao.producer.ContaProducer;
@@ -59,7 +59,7 @@ public class LancamentoService {
         return lancamentoProxy.obterRetornoTransacao();
     }
 
-    public NovaTransferenciaDTO transferir(TransferenciaCommand command){
+    public TransferenciaDTO transferir(TransferenciaCommand command){
 
         LancamentoTransferencia lancamentoProxy = (LancamentoTransferencia) lancamentoFactory
                 .factory(TipoTransacaoEnum.TRANSFERENCIA, command);

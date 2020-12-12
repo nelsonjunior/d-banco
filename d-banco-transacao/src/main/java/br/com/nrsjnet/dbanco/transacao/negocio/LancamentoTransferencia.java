@@ -1,6 +1,6 @@
 package br.com.nrsjnet.dbanco.transacao.negocio;
 
-import br.com.nrsjnet.dbanco.transacao.dominio.dto.NovaTransferenciaDTO;
+import br.com.nrsjnet.dbanco.transacao.dominio.dto.TransferenciaDTO;
 import br.com.nrsjnet.dbanco.transacao.dominio.entidade.Conta;
 import br.com.nrsjnet.dbanco.transacao.dominio.entidade.Lancamento;
 import br.com.nrsjnet.dbanco.transacao.dominio.enums.TipoLancamentoEnum;
@@ -25,8 +25,8 @@ public class LancamentoTransferencia extends AbstractLancamento<DadosLancamentoT
     }
 
     @Override
-    public NovaTransferenciaDTO obterRetornoTransacao() {
-        NovaTransferenciaDTO transacao = new NovaTransferenciaDTO();
+    public TransferenciaDTO obterRetornoTransacao() {
+        TransferenciaDTO transacao = new TransferenciaDTO();
         transacao.setTipoTransacao(TipoTransacaoEnum.TRANSFERENCIA);
         transacao.setDataTransacao(lancamentoDebito.getDataTransacao());
         transacao.setValorInformado(dados.getValor());

@@ -4,7 +4,7 @@ package br.com.nrsjnet.dbanco.transacao.apresentacao;
 import br.com.nrsjnet.dbanco.transacao.dominio.command.DepositarCommand;
 import br.com.nrsjnet.dbanco.transacao.dominio.command.SaqueCommand;
 import br.com.nrsjnet.dbanco.transacao.dominio.command.TransferenciaCommand;
-import br.com.nrsjnet.dbanco.transacao.dominio.dto.NovaTransferenciaDTO;
+import br.com.nrsjnet.dbanco.transacao.dominio.dto.TransferenciaDTO;
 import br.com.nrsjnet.dbanco.transacao.dominio.dto.TransacaoDTO;
 import br.com.nrsjnet.dbanco.transacao.service.LancamentoService;
 import io.swagger.annotations.Api;
@@ -65,7 +65,7 @@ public class ContaResource {
     })
     @PostMapping(path = "/transferir")
     @ResponseStatus(HttpStatus.CREATED)
-    public NovaTransferenciaDTO transferir(@RequestBody TransferenciaCommand dto) {
+    public TransferenciaDTO transferir(@RequestBody TransferenciaCommand dto) {
         return this.lancamentoService.transferir(dto);
     }
 }

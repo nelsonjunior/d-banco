@@ -21,9 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,18 +43,6 @@ public class ContaResourceTest {
     @AfterEach
     public void cleanUp(){
         contaRepository.deleteAll();
-    }
-
-    @Test
-    @DisplayName("Deve realizar request obter lista de contas")
-    public void recuperarContasEsperandoStatus200() throws Exception {
-
-        mockMvc.perform(get(Paths.CONTAS)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
@@ -103,16 +89,4 @@ public class ContaResourceTest {
 
     }
 
-    @Test
-    @DisplayName("Deve realizar request obter a conta cadastrada")
-    public void recuperarContaStatus200() throws Exception {
-
-        mockMvc.perform(get(Paths.CONTAS + "/1111111111")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nomeCompleto", is("Pessoa Ja Cadastrada")))
-                .andExpect(jsonPath("$.cpf", is("1111111111")))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
 }

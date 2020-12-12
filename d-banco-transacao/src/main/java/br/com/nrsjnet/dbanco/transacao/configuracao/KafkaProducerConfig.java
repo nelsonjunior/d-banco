@@ -41,7 +41,6 @@ public class KafkaProducerConfig {
         return new DefaultKafkaProducerFactory<>(getProducerProps());
     }
 
-
     private Map<String, Object> getProducerProps() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);

@@ -12,10 +12,8 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransferenciaDTO {
+public class TransferenciaDTO extends TransacaoDTO {
 
-    private UUID uuid;
-    private TipoTransacaoEnum tipoTransacao;
-    private BigDecimal valorRealizado;
-    private LocalDate dataTransacao;
+    private String cpfOrigem;
+    private String cpfDestino;
 }

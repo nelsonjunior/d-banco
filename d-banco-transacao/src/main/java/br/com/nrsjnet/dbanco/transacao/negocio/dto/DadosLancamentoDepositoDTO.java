@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class DadosLancamentoDepositoDTO extends DadosLancamentoDTO {
 
     private Optional<Conta> conta;

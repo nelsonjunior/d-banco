@@ -14,6 +14,6 @@ public class ContaDTO {
     private String uuid;
     private String nomeCompleto;
     private String cpf;
-    private BigDecimal saldo;
+    private BigDecimal saldo = BigDecimal.ZERO;
 }
 
