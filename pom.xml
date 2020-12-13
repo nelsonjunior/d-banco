@@ -1,0 +1,33 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.com.nrsjnet.dbanco</groupId>
+    <artifactId>d-banco</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>d-banco</name>
+    <packaging>pom</packaging>
+    <description>Projeto de uma API com algumas funções essenciais relacionadas ao gerenciamento de contas bancárias</description>
+    
+    <developers>
+        <developer>
+            <id>nrsjnet</id>
+            <name>Nelson Rodrigues da Silva Júnior</name>
+            <email>nrsjnet@gmail.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <sonar.projectKey>nelsonjunior_d-banco</sonar.projectKey>
+        <sonar.organization>nelsonjunior</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
+
+    <modules>
+        <module>d-banco-conta</module>
+        <module>d-banco-balanco</module>
+        <module>d-banco-transacao</module>
+    </modules>
+
+</project>
