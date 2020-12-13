@@ -108,7 +108,7 @@ public class ContaResourceTest {
     @DisplayName("Deve realizar request obter saldo conta")
     public void deveRecuperarSaldoContaEsperandoStatus200() throws Exception {
 
-        mockMvc.perform(get(Paths.CONTAS + "/" + CPF)
+        mockMvc.perform(get(Paths.CONTAS + "/" + CPF + "/saldo")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
