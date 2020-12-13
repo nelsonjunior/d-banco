@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Api(
         value = Paths.CONTAS,
         description = "Gerir Conta",
@@ -41,7 +43,7 @@ public class ContaResource {
     })
     @PostMapping(path = "/depositar")
     @ResponseStatus(HttpStatus.CREATED)
-    public TransacaoDTO depositar(@RequestBody DepositarCommand dto) {
+    public TransacaoDTO depositar(@Valid @RequestBody DepositarCommand dto) {
         return this.lancamentoService.depositar(dto);
     }
 
@@ -53,7 +55,7 @@ public class ContaResource {
     })
     @PostMapping(path = "/sacar")
     @ResponseStatus(HttpStatus.CREATED)
-    public TransacaoDTO sacar(@RequestBody SaqueCommand dto) {
+    public TransacaoDTO sacar(@Valid @RequestBody SaqueCommand dto) {
         return this.lancamentoService.sacar(dto);
     }
 
@@ -65,7 +67,7 @@ public class ContaResource {
     })
     @PostMapping(path = "/transferir")
     @ResponseStatus(HttpStatus.CREATED)
-    public TransferenciaDTO transferir(@RequestBody TransferenciaCommand dto) {
+    public TransferenciaDTO transferir(@Valid @RequestBody TransferenciaCommand dto) {
         return this.lancamentoService.transferir(dto);
     }
 }

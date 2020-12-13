@@ -2,18 +2,22 @@ import http from 'k6/http';
 import {check, sleep} from 'k6';
 import { Rate, Counter } from 'k6/metrics';
 
+const params = {
+    headers: {
+        'Content-Type': 'application/json',
+    },
+};
 
-const dataPayload = JSON.parse(open("data/cadastrar-conta-data.json"));
-
-function getRandon(max) {
-    return Math.floor(Math.random() * max) + 1;
-}
+const data = JSON.parse(open('data/cadastrar-conta-data.json'));
 
 export let errorRate = new Rate('errors');
 
 let contasNovas = new Counter('Novas contas');
 let contasJaCadastradas = new Counter('Contas já cadastras');
 
+function getRandon(max) {
+    return Math.floor(Math.random() * max) + 1;
+}
 
 export let options = {
     thresholds: {
@@ -29,6 +33,7 @@ function contaJaCadastrada(r) {
 }
 
 export default function() {
+
     const url = 'http://localhost:8081/v1/contas';
 
     const params = {
@@ -37,7 +42,7 @@ export default function() {
         },
     };
 
-    const payload = dataPayload[getRandon(10000)];
+    const payload = data[getRandon(4999)];
 
     const res = http.post(url, JSON.stringify(payload), params);
 
@@ -48,4 +53,6 @@ export default function() {
     contasNovas.add(res.status === 201 ? 1 : 0);
 
     contasJaCadastradas.add(contaJaCadastrada(res) ? 1 : 0);
+
+    sleep(0.5);
 }

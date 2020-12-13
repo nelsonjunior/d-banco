@@ -2,9 +2,8 @@ package br.com.nrsjnet.dbanco.conta.dominio.entidade;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Entity
@@ -18,9 +17,13 @@ public class Conta {
     private UUID uuid;
 
     @Getter @Setter
+    @Column(nullable = false)
+    @NotBlank(message = "Nome é obrigatório")
     private String nomeCompleto;
 
     @Getter @Setter
+    @NotBlank(message = "CPF é obrigatório")
+    @Column(unique = true, nullable = false)
     private String cpf;
 
 }

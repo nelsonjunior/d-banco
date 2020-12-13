@@ -7,7 +7,7 @@ const params = {
     },
 };
 
-const data = JSON.parse(open('data/setup-data.json'));
+const data = JSON.parse(open('data/setup-saldo-data.json'));
 
 function getRandon(max) {
     return Math.floor(Math.random() * max) + 1;
@@ -21,23 +21,25 @@ export function setup() {
     const urlDeposito = 'http://localhost:8082/v1/contas/depositar';
 
     for (let i = 0; i < data.length; i++) {
+        http.post(urlCadastro, JSON.stringify(data[i]), params);
+    }
 
+    sleep(2);
+
+    for (let i = 0; i < data.length; i++) {
         var payload = {
             "cpf": data[i].cpf,
             "valor": getRandon(10)
         };
-
-        http.post(urlCadastro, JSON.stringify(data[i]), params);
-        sleep(0.2);
         http.post(urlDeposito, JSON.stringify(payload), params);
-
     }
 
+    sleep(2);
 }
 
 export default function() {
 
-    const url = `http://localhost:8083/v1/contas/${data[getRandon(6)].cpf}`;
+    const url = `http://localhost:8083/v1/contas/${data[getRandon(49)].cpf}/saldo`;
 
     const res = http.get(url, params);
 

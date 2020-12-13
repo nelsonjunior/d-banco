@@ -9,7 +9,9 @@ import br.com.nrsjnet.dbanco.conta.service.exceptions.ContaJaCadastradaException
 import br.com.nrsjnet.dbanco.conta.service.exceptions.ContaNaoEncontradaException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +31,7 @@ public class ContaService {
         this.modelMapper = modelMapper;
     }
 
+    @Transactional
     public ContaDTO salvar(CadastrarContaDTO dto) {
         validarCadastro(dto);
         Conta conta = contaRepository.save(modelMapper.map(dto, Conta.class));

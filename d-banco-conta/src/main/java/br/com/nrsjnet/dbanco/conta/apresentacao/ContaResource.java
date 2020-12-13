@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(
@@ -39,7 +40,7 @@ public class ContaResource {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ContaDTO salvar(@RequestBody CadastrarContaDTO dto) {
+    public ContaDTO salvar(@Valid @RequestBody CadastrarContaDTO dto) {
         return this.contaService.salvar(dto);
     }
 
@@ -51,7 +52,7 @@ public class ContaResource {
     })
     @GetMapping("{cpf}")
     @ResponseStatus(HttpStatus.OK)
-    public ContaDTO obter(@PathVariable("cpf") String cpf){
+    public ContaDTO obter(@Valid @PathVariable("cpf") String cpf){
         return this.contaService.obter(cpf);
     }
 
