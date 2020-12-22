@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java: openjdk11
   pre_build:
     commands:
     - echo In the pre_build phase...
@@ -12,7 +12,7 @@ phases:
   post_build:
     commands:
     - echo Build completed on `date`
-    - mvn package
+    - mvn package -pl d-banco-conta
     - mv target/d-banco-conta/d-banco-conta-0.0.1-SNAPSHOT d-banco-conta-0.0.1-SNAPSHOT.jar
 artifacts:
   files:
